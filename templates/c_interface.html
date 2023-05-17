@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat UI</title>
+  <style>
+    .content{
+        font-size: 28px;
+    }
+    /* Chat container */
+    .chat-container {
+      flex: 1;
+      border: 1px solid #ccc;
+      margin: 0 auto;
+      padding: 10px;
+      overflow-y: auto;
+    }
+
+    /* Chat messages */
+    .message {
+      margin-bottom: 10px;
+    }
+
+    .message .sender {
+      font-weight: bold;
+    }
+
+    .message .content {
+      background-color: #F0F0F0;
+      padding: 5px;
+      border-radius: 5px;
+    }
+
+    /* Input area */
+    .input-container {
+      display: flex;
+      margin-top: 10px;
+    }
+
+    .input-box {
+      flex: 1;
+      padding: 5px;
+    }
+
+    .send-button {
+      padding: 5px 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="message">
+        <span class="sender">Teacher Bot:</span>
+        <div class="content">
+          Hi there! I am your AI assistant teacher, ask me anything about the course!
+        </div>
+      </div>
+    <!-- Add more chat messages here -->
+  </div>
+
+  <div class="input-container">
+    <input type="text" class="input-box" placeholder="Type your message...">
+    <button class="send-button">Send</button>
+  </div>
+</body>
+</html>
