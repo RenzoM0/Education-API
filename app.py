@@ -1,5 +1,7 @@
-from flask import Flask
+from flask import Flask,jsonify,request
 from views import views
+import config
+
 
 app = Flask(__name__)
 app.register_blueprint(views, url_prefix="/views")
