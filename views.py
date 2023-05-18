@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, jsonify, request
+from flask import Blueprint, render_template, jsonify, request, redirect, url_for
 import aiapi
 
 views = Blueprint(__name__, "views")
@@ -9,7 +9,7 @@ def home():
     return render_template("index.html")
 
 @views.route("/chat", methods=['POST', 'GET'])
-def home2():
+def chat():
     if request.method == 'POST':
         prompt = request.form['prompt']
         

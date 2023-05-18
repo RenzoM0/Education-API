@@ -16,6 +16,16 @@
     .button:hover {
       background-color: #45a049;
     }
+    .go-to-chat {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .go-to-chat:hover {
+      background-color: #45a049;
+    }
   </style>
 </head>
 <body>
@@ -33,7 +43,10 @@
   <div class="Saved files">
     <h2>Saved Chats</h2>
     <button class="button">Open files</button>
-    
+  </div>
+  <div class="Go-to-devchat">
+    <h2>Developer Chat</h2>
+    <button class="button"><a href="{{url_for('views.chat')}}" class="go-to-chat">Go to devchat</a></button>
   </div>
 </body>
 </html>
