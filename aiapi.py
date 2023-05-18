@@ -4,9 +4,25 @@ import config
 
 openai.api_key = config.DevelopmentConfig.OPENAI_KEY
 
-def generateChatResponse(prompt):
+testresponse = """ You are a pirate"""
+instructionscourse1 = """ You are a Math teacher, you help students to learn about math. 
+    If the student asks you questions not about math, ask them kindly to keep it on topic."""
+instructionscourse2 = """ You are a Research teacher, you help students to learn about doing research. 
+    If the student asks you questions not about research, ask them kindly to keep it on topic."""
+
+def switch(number):
+    if number == 1:
+        return instructionscourse1
+    elif number == 2:
+        return instructionscourse2
+    else:
+        return testresponse
+# Switch not working, just for testing
+def generateChatResponse(prompt, number):
+    content = switch(number)
+                 
     messages = []
-    messages.append({"role": "system", "content": "You are a helpful assistant."})
+    messages.append({"role": "system", "content": content})
     
     question = {}
     question['role'] = 'user'
