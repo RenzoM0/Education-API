@@ -87,6 +87,28 @@
       `;
       $("#chat-input").val('');
       $("#chat-log").append(html_data);
+
+      //AJAX CALL TO THE SERVER
+      $.ajax({
+        type: "POST",
+        url: "/views/chat",
+        data: {'prompt': question},
+        success: function (data) {
+          let gpt_data = '';
+          gpt_data += `
+          <div class="chat-container">
+            <div class="message">
+              <span class="sender">Teacher Bot:</span>
+              <div class="content">
+                ${data.answer}
+              </div>
+            </div>
+          </div>
+          `;
+          $("#chat-log").append(gpt_data);
+        }
+      });
+
     });
   </script>
 </body>
