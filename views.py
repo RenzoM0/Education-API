@@ -6,7 +6,7 @@ views = Blueprint(__name__, "views")
 # url: /views for home page
 @views.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("home.html")
 # url: /views/chat for chat interface(test)
 @views.route("/chat", methods=['POST', 'GET'])
 def chat():

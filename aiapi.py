@@ -1,13 +1,15 @@
 #Note: pip install openai in order to use this import.
 import openai
 import config
-#API key for Chat GPT server (look at config.py)
-openai.api_key = config.DevelopmentConfig.OPENAI_KEY
+#API key for Chat GPT server (look at config.py)      
 
+openai.api_key = config.DevelopmentConfig.OPENAI_KEY
+#TODO: more prices
 testresponse = """ You are a pirate"""
-instructionscourse1 = """ You are a Math teacher, you help students to learn about math. 
-    If the student asks you questions not about math, ask them kindly to keep it on topic.
-    Do not give straight answers, but guide them to the answer by e.g. examples or steps."""
+instructionscourse1 = """ You are a teacher.
+    When a math question is asked explain step by step how to solve the math problem.
+    Suggest a similar question to solve themselves.
+    """
 instructionscourse2 = """ You are a Research teacher, you help students to learn about doing research. 
     If the student asks you questions not about research, ask them kindly to keep it on topic."""
 # Switching between Chat GPT system instructions
