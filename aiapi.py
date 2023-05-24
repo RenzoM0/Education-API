@@ -10,6 +10,7 @@ instructionscourse1 = """ You are a teacher.
     When a math question is asked explain step by step how to solve the math problem.
     Suggest a similar question to solve themselves.
     """
+i_course1_quiz = """"""
 instructionscourse2 = """ You are a Research teacher, you help students to learn about doing research. 
     If the student asks you questions not about research, ask them kindly to keep it on topic."""
 # Switching between Chat GPT system instructions
@@ -18,6 +19,8 @@ def switch(number):
         return instructionscourse1
     elif number == 2:
         return instructionscourse2
+    elif number == 3:
+        return i_course1_quiz
     else:
         return testresponse
 # Dependening on switch(number) ask response from Chat GPT server.

@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Bootstrap Example</title>
+  <title>Education AI homepage</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -10,13 +10,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
   <style>
-    .go-to-chat {
-      padding: 10px 20px;
-      color: rgb(0, 0, 0);
-      border: none;
-      cursor: pointer;
-    }
-
     .small {
       font-size: 24px;
     }
@@ -32,12 +25,62 @@
     .indextext {
       font-size: 22px;
     }
+
+    .rounded-3 {
+      border-radius: 0.3rem !important;
+    }
+
+    .bg-dark {
+      background-color: #212529 !important;
+    }
+
+    .text-white {
+      color: #fff !important;
+    }
+
+    .p-5 {
+      padding: 3rem !important;
+    }
+
+    .h-100 {
+      height: 100% !important;
+    }
+
+    *,
+    ::after,
+    ::before {
+      box-sizing: border-box;
+    }
+
+    stylesheet voor user-agents div {
+      display: block;
+    }
+
+    .bg-light {
+      background-color: #353647 !important;
+    }
+
+    .bg-grey {
+      background-color: #e3e3e3;
+    }
+
+    .bg-white {
+      background-color: #ffffff !important;
+    }
+
+    .border {
+      border: 1px solid #dee2e6 !important;
+    }
+
+    .btn-outline-secondary {
+      color: #484545;
+    }
   </style>
 
 </head>
 
-<body>
-
+<body class="bg-light">
+  
   <div class="jumbotron">
     <h1>Education AI</h1>
     <p class="indextext"> Learn with your personal AI teacher, choose a course and get started!</p>
@@ -45,50 +88,41 @@
   
   <section class="bg-light py-5">
     <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <h2 class="display-5 font-weight-bold mb-5">Courses</h2>
+    </div class="h-100 d-flex align-items-center justify-content-center">
+    <div class="row" id="courslist">
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+          <h2>Math</h2>
+          <p class="small">Get your math question answered or grade your paper</p>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course1chat')}}"
+                class="go-to-chat">Teach</a></button>
+            <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
+          </div>
+          <small class="text-body-secondary">Edit rubric</small>
         </div>
       </div>
-      <div class="row">
-        <div class="col-md-6 col-xl-4">
-          <div class="image-box image-box--shadowed white-bg style-2 mb-4">
-            <div class="body">
-              <h5 class="font-weight-bold my-2">Math</h5>
-              <p class="small">Get your math question answered, quiz yourself or grade your paper</p>
-              <div class="row d-flex align-items-center">
-                <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course1chat')}}"
-                    class="go-to-chat">Teach</a></button>
-                <button type="button" class="btn btn-outline-secondary btn-lg">Quiz</button>
-                <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assassment</button>
-                <div class="col-6 text-right">
-                  <a href="#" class="btn radius-50 btn-gray-transparent btn-animated">Edit rubric <i
-                      class="fa fa-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-grey border rounded-3">
+          <h2>Research</h2>
+          <p class="small">Get your research question answered or grade your paper</p>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course2chat')}}"
+                class="go-to-chat">Teach</a></button>
+            <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
           </div>
+          <small class="text-body-secondary">Edit rubric</small>
         </div>
-        <div class="col-md-6 col-xl-4">
-          <div class="image-box image-box--shadowed white-bg style-2 mb-4">
-            <div class="body">
-              <h5 class="font-weight-bold my-2">Research</h5>
-              <p class="small">Get your research question answered or grade your paper</p>
-              <div class="row d-flex align-items-center">
-                <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course2chat')}}"
-                    class="go-to-chat">Teach</a></button>
-                <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
-                <div class="col-6 text-right">
-                  <a href="#" class="btn radius-50 btn-gray-transparent btn-animated">Edit rubric <i
-                      class="fa fa-arrow-right"></i></a>
-                </div>
-              </div>
-            </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-white border rounded-3">
+          <h2>Chat history</h2>
+          <p class="small">Look into saved conversation with Chat-GPT</p>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-secondary btn-lg">Browse files</button>
           </div>
         </div>
       </div>
-    </div>
-    </div>
     </div>
     </div>
     </div>
