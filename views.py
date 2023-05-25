@@ -25,7 +25,7 @@ def course2chat():
         prompt = request.form['prompt']
         
         res = {}
-        res['answer'] = aiapi.generateChatResponse(prompt, 2)
+        res['answer'] = aiapi.generateChat(prompt, 2)
         return jsonify(res), 200
         
     return render_template("c_interface_course2.html")
