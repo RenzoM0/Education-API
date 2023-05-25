@@ -75,59 +75,89 @@
     .btn-outline-secondary {
       color: #484545;
     }
+
+    .subtitle {
+      color: #ffffff;
+    }
+
+    .submitwhite {
+      color: #000000;
+
+    }
   </style>
 
 </head>
 
 <body class="bg-light">
-  
-  <div class="jumbotron">
-    <h1>Education AI</h1>
-    <p class="indextext"> Learn with your personal AI teacher, choose a course and get started!</p>
-  </div>
-  
-  <section class="bg-light py-5">
-    <div class="container">
-    </div class="h-100 d-flex align-items-center justify-content-center">
-    <div class="row" id="courslist">
-      <div class="col-md-6">
-        <div class="h-100 p-5 text-white bg-dark rounded-3">
-          <h2>Math</h2>
-          <p class="small">Get your math question answered or grade your paper</p>
-          <div class="btn-group">
-            <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course1chat')}}"
-                class="go-to-chat">Teach</a></button>
-            <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
-          </div>
-          <small class="text-body-secondary">Edit rubric</small>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="h-100 p-5 bg-grey border rounded-3">
-          <h2>Research</h2>
-          <p class="small">Get your research question answered or grade your paper</p>
-          <div class="btn-group">
-            <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course2chat')}}"
-                class="go-to-chat">Teach</a></button>
-            <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
-          </div>
-          <small class="text-body-secondary">Edit rubric</small>
-        </div>
-      </div>
-      <div class="col-md-6">
-        <div class="h-100 p-5 bg-white border rounded-3">
-          <h2>Chat history</h2>
-          <p class="small">Look into saved conversation with Chat-GPT</p>
-          <div class="btn-group">
-            <button type="button" class="btn btn-outline-secondary btn-lg">Browse files</button>
-          </div>
-        </div>
-      </div>
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Education AI</h1>
+      <p class="indextext"> Learn with your personal AI teacher, choose a course and get started!</p>
     </div>
-    </div>
-    </div>
-  </section>
+    <div class="row">
+      <h2 class="subtitle">Costumize your AI personality</h2>
+      <div class="col-md-4">
+        <label for="theme">Choose theme:</label>
 
+        <select id="theme">
+          <option value="Default">Volvo</option>
+          <option value="Generation-Z">Saab</option>
+          <option value="">VW</option>
+          <option value="audi" selected>Audi</option>
+        </select>
+      </div>
+    </div>
+    <section class="bg-light py-5">
+      <div class="container">
+      </div class="h-100 d-flex align-items-center justify-content-center">
+      <div class="row" id="courslist">
+        <h2 class="subtitle">Courses</h2>
+        <div class="col-md-6">
+          <div class="h-100 p-5 text-white bg-dark rounded-3">
+            <h2>Math</h2>
+            <p class="small">Get your math question answered or grade your paper</p>
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course1chat')}}"
+                  class="go-to-chat">Teach</a></button>
+              <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
+              <form action="/action_page.php">
+                <label for="files">Edit rubric:</label>
+                <input type="file" id="files" name="files" multiple><br><br>
+                <input class="submitwhite" type="submit">
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-grey border rounded-3">
+            <h2>Research</h2>
+            <p class="small">Get your research question answered or grade your paper</p>
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course2chat')}}"
+                  class="go-to-chat">Teach</a></button>
+              <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
+              <form action="/action_page.php">
+                <label for="files">Edit rubric:</label>
+                <input type="file" id="files" name="files" multiple><br><br>
+                <input type="submit">
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="h-100 p-5 bg-white border rounded-3">
+            <h2>Chat history</h2>
+            <p class="small">Look into saved conversation with Chat-GPT</p>
+            <div class="btn-group">
+              <button type="button" class="btn btn-outline-secondary btn-lg">Browse files</button>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+  </section>
+  </div>
 </body>
 
 </html>
