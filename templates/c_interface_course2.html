@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Chat UI</title>
+  <title>Chat</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
   <style>
-    .content{
-        font-size: 28px;
+    .content {
+      font-size: 28px;
     }
+
     /* Chat container */
     .chat-container {
       flex: 1;
@@ -48,43 +56,88 @@
       border: none;
       cursor: pointer;
     }
+
+    .bg-light {
+      background-color: #353647 !important;
+      margin-left: 15px;
+      margin-right: 15px;
+    }
+
+    .mb-3 {
+      background: skyblue;
+      border-radius: 25px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    .mb-2 {
+      background: springgreen;
+      border-radius: 25px;
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    .message {
+      background: skyblue;
+    }
+    #usermessage {
+      background: springgreen;
+    }
+  
+    #aicontent {
+      background: skyblue;
+    }
+    #usercontent {
+      background: springgreen;
+    }
   </style>
+
 </head>
-<body>
-  <div class="list-group w-auto" id="chat-log">
-    <div class="chat-container mb-3">
-      <div class="message">
+
+<body class="bg-light">
+  <div class="container">
+    <div class="jumbotron">
+      <h1>Education AI</h1>
+      <p class="indextext"> Learn with your personal AI teacher, choose a course and get started!</p>
+    </div>
+
+
+    <div class="list-group w-auto" id="chat-log">
+      <div class="chat-container mb-3">
+        <div class="message">
           <span class="sender">Teacher Bot:</span>
-          <div class="content">
+          <div class="content" id="aicontent">
             Hi there! I am your AI assistant teacher, ask me anything about the course!
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="input-container">
+      <input type="text" id="chat-input" class="input-box" placeholder="Type your message...">
+      <button class="send-button" id="gpt-button">Send</button>
     </div>
   </div>
 
-  <div class="input-container">
-    <input type="text" id="chat-input" class="input-box" placeholder="Type your message...">
-    <button class="send-button" id="gpt-button">Send</button>
-  </div>
+  <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
 
-  <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-  
   <script>
-    $("#gpt-button").click(function(){
+    $("#gpt-button").click(function () {
       var question = $("#chat-input").val();
 
       let html_data = '';
       html_data += `
-      <div class="chat-container">
-        <div class="message">
-          <span class="sender">You:</span>
-          <div class="content">
-            ${question}
+        <div class="chat-container mb-2">
+          <div class="message" id="usermessage">
+            <span class="sender">You:</span>
+            <div class="content" id="usercontent">
+              ${question}
+            </div>
           </div>
         </div>
-      </div>
-      `;
+        `;
       $("#chat-input").val('');
       $("#chat-log").append(html_data);
 
@@ -92,19 +145,19 @@
       $.ajax({
         type: "POST",
         url: "/views/course2chat",
-        data: {'prompt': question},
+        data: { 'prompt': question },
         success: function (data) {
           let gpt_data = '';
           gpt_data += `
-          <div class="chat-container">
-            <div class="message">
-              <span class="sender">Teacher Bot:</span>
-              <div class="content">
-                ${data.answer}
+            <div class="chat-container mb-3">
+              <div class="message">
+                <span class="sender">Teacher Bot:</span>
+                <div class="content" id="aicontent">
+                  ${data.answer}
+                </div>
               </div>
             </div>
-          </div>
-          `;
+            `;
           $("#chat-log").append(gpt_data);
         }
       });
@@ -112,4 +165,5 @@
     });
   </script>
 </body>
+
 </html>

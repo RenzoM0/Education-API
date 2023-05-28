@@ -58,6 +58,8 @@
 
     .bg-light {
       background-color: #353647 !important;
+      margin-left: 15px;
+      margin-right: 15px;
     }
 
     .bg-grey {
@@ -80,9 +82,21 @@
       color: #ffffff;
     }
 
+    .editrubric {
+      color: #000000
+    }
+
     .submitwhite {
       color: #000000;
 
+    }
+
+    label {
+      color: #ffffff
+    }
+
+    #theme {
+      color: #000000
     }
   </style>
 
@@ -96,68 +110,116 @@
     </div>
     <div class="row">
       <h2 class="subtitle">Costumize your AI personality</h2>
-      <div class="col-md-4">
-        <label for="theme">Choose theme:</label>
-
-        <select id="theme">
-          <option value="Default">Volvo</option>
-          <option value="Generation-Z">Saab</option>
-          <option value="">VW</option>
-          <option value="audi" selected>Audi</option>
+      <div class="col-sm-2">
+        <label for="talking-style">Choose talking style:</label>
+        <select id="talking-style">
+          <option value="Humor">Humor</option>
+          <option value="Generation-Z">Generation-Z</option>
+          <option value="Default" selected>Default</option>
         </select>
       </div>
+
+      <div class="col-sm-2">
+        <label for="learning-style">Choose learning style:</label>
+        <select id="learning-style">
+          <option value="Interactive Elements">Interactive Elements</option>
+          <option value="Visual">Visual</option>
+          <option value="Offer choices">Offer choices</option>
+          <option value="Default" selected>Default</option>
+        </select>
+      </div>
+
+      <div class="col-sm-2">
+        <label for="timely-responses">Timely responses:</label>
+        <select id="timely-responses">
+          <option value="On">On</option>
+          <option value="Off" selected>Off</option>
+        </select>
+      </div>
+
     </div>
-    <section class="bg-light py-5">
-      <div class="container">
-      </div class="h-100 d-flex align-items-center justify-content-center">
-      <div class="row" id="courslist">
-        <h2 class="subtitle">Courses</h2>
-        <div class="col-md-6">
-          <div class="h-100 p-5 text-white bg-dark rounded-3">
-            <h2>Math</h2>
-            <p class="small">Get your math question answered or grade your paper</p>
-            <div class="btn-group">
-              <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course1chat')}}"
-                  class="go-to-chat">Teach</a></button>
-              <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
-              <form action="/action_page.php">
-                <label for="files">Edit rubric:</label>
-                <input type="file" id="files" name="files" multiple><br><br>
-                <input class="submitwhite" type="submit">
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="h-100 p-5 bg-grey border rounded-3">
-            <h2>Research</h2>
-            <p class="small">Get your research question answered or grade your paper</p>
-            <div class="btn-group">
-              <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course2chat')}}"
-                  class="go-to-chat">Teach</a></button>
-              <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
-              <form action="/action_page.php">
-                <label for="files">Edit rubric:</label>
-                <input type="file" id="files" name="files" multiple><br><br>
-                <input type="submit">
-              </form>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="h-100 p-5 bg-white border rounded-3">
-            <h2>Chat history</h2>
-            <p class="small">Look into saved conversation with Chat-GPT</p>
-            <div class="btn-group">
-              <button type="button" class="btn btn-outline-secondary btn-lg">Browse files</button>
-            </div>
+
+    <button id="instruction-button" onclick="sendBehaviorSettings()">Update personality</button>
+
+    <div class="row">
+      <h2 class="subtitle">Courses</h2>
+      <div class="col-md-6">
+        <div class="h-100 p-5 text-white bg-dark rounded-3">
+          <h2>Math</h2>
+          <p class="small">Get your math question answered or grade your paper</p>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course1chat')}}"
+                class="go-to-chat">Teach</a></button>
+            <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
+            <form action="/action_page.php">
+              <label for="files">Edit rubric:</label>
+              <input type="file" id="files" name="files" multiple><br><br>
+              <input class="submitwhite" type="submit" value="submit">
+            </form>
           </div>
         </div>
       </div>
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-grey border rounded-3">
+          <h2>Research</h2>
+          <p class="small">Get your research question answered or grade your paper</p>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.course2chat')}}"
+                class="go-to-chat">Teach</a></button>
+            <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
+            <form action="/action_page.php">
+              <label for="files" class="editrubric">Edit rubric:</label>
+              <input type="file" id="files" name="files" multiple><br><br>
+              <input type="submit" value="submit">
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="h-100 p-5 bg-white border rounded-3">
+          <h2>Chat history</h2>
+          <p class="small">Look into saved conversation with Chat-GPT</p>
+          <div class="btn-group">
+            <button type="button" class="btn btn-outline-secondary btn-lg">Browse files</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  </div>
-  </section>
-  </div>
+
+  <script>
+    function sendBehaviorSettings() {
+      // Get the selected values from the dropdowns
+      const talkingStyle = document.getElementById("talking-style").value;
+      const learningStyle = document.getElementById("learning-style").value;
+      const timelyResponses = document.getElementById("timely-responses").value;
+
+      // Create an object with the values
+      const data = {
+        talkingStyle,
+        learningStyle,
+        timelyResponses
+      };
+
+      // Send the data to the backend
+      fetch("/views/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      })
+        .then(response => {
+          // Handle the response from the backend
+          // e.g., show a success message or perform further actions
+          console.log("Data sent successfully");
+        })
+        .catch(error => {
+          // Handle any errors that occur during the request
+          console.error("Error:", error);
+        });
+    }
+  </script>
 </body>
 
 </html>
