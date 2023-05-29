@@ -42,6 +42,7 @@
     .input-container {
       display: flex;
       margin-top: 10px;
+      margin-bottom: 20px;
     }
 
     .input-box {
@@ -69,22 +70,26 @@
       margin-top: 5px;
       margin-bottom: 5px;
     }
+
     .mb-2 {
       background: springgreen;
       border-radius: 25px;
       margin-top: 5px;
       margin-bottom: 5px;
     }
+
     .message {
       background: skyblue;
     }
+
     #usermessage {
       background: springgreen;
     }
-  
+
     #aicontent {
       background: skyblue;
     }
+
     #usercontent {
       background: springgreen;
     }
@@ -99,6 +104,13 @@
       <p class="indextext"> Learn with your personal AI teacher, choose a course and get started!</p>
     </div>
 
+    <div class="row">
+      <div class="btn-group">
+        <button type="button" class="btn btn-outline-primary btn-lg"><a href="{{url_for('views.home')}}">Go
+            back</a></button>
+        <button type="button" class="btn btn-outline-secondary btn-lg">Save chat</button>
+      </div>
+    </div>
 
     <div class="list-group w-auto" id="chat-log">
       <div class="chat-container mb-3">
@@ -124,6 +136,16 @@
     crossorigin="anonymous"></script>
 
   <script>
+    const input = document.getElementById('chat-input');
+    const button = document.getElementById('gpt-button');
+
+    input.addEventListener('keyup', function (event) {
+      if (event.key === 'Enter') {
+        event.preventDefault(); // Prevents the default behavior of the Enter key
+
+        button.click(); // Trigger a click event on the button
+      }
+    });
     $("#gpt-button").click(function () {
       var question = $("#chat-input").val();
 
@@ -159,9 +181,11 @@
             </div>
             `;
           $("#chat-log").append(gpt_data);
+          window.scrollTo(0, document.body.scrollHeight); // Scroll the page to the bottom
+
         }
       });
-
+      window.scrollTo(0, document.body.scrollHeight); // Scroll the page to the bottom
     });
   </script>
 </body>
