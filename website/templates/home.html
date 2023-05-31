@@ -1,0 +1,120 @@
+{% extends "base.html" %} {% block title %}Homepage{% endblock %}
+{% block style%}
+<style>
+    .small {
+        font-size: 24px;
+    }
+
+    .font-weight-bold {
+        font-size: 32px;
+    }
+
+    .h1 {
+        font-size: 38px;
+    }
+
+    .indextext {
+        font-size: 22px;
+    }
+
+    .rounded-3 {
+        border-radius: 0.3rem !important;
+    }
+
+    .bg-dark {
+        background-color: #212529 !important;
+    }
+
+    .text-white {
+        color: #fff !important;
+    }
+
+    .p-5 {
+        padding: 3rem !important;
+    }
+
+    .h-100 {
+        height: 100% !important;
+    }
+
+    *,
+    ::after,
+    ::before {
+        box-sizing: border-box;
+    }
+
+    stylesheet voor user-agents div {
+        display: block;
+    }
+
+    .bg-light {
+        background-color: #353647 !important;
+        margin-left: 15px;
+        margin-right: 15px;
+    }
+
+    .bg-grey {
+        background-color: #e3e3e3;
+    }
+
+    .bg-white {
+        background-color: #ffffff !important;
+    }
+
+    .border {
+        border: 1px solid #dee2e6 !important;
+    }
+
+    .btn-outline-secondary {
+        color: #ffffff;
+    }
+
+    .subtitle {
+        color: #ffffff;
+    }
+
+    .editrubric {
+        color: #000000
+    }
+
+    .submitwhite {
+        color: #000000;
+
+    }
+
+    label {
+        color: #ffffff
+    }
+
+    #theme {
+        color: #000000
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>Education AI</h1>
+        <p class="indextext"> Learn with your personal AI teacher, choose a course and get started!</p>
+    </div>
+    <div class="row">
+        <h2 class="subtitle">Courses</h2>
+        <div class="col-md-6">
+            <div class="h-100 p-5 text-white bg-dark rounded-3">
+                <h2>Math</h2>
+                <p class="small">Get your math question answered or grade your paper</p>
+                <a href="/course1chat"><button type="button" class="btn btn-outline-primary btn-lg">Teach</button></a>
+                <button type="button" class="btn btn-outline-secondary btn-lg">Grade Assessment</button>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="h-100 p-5 bg-grey border rounded-3">
+                <h2>Research</h2>
+                <p class="small">Get your research question answered or grade your paper</p>
+                <a href="/course2chat"><button type="button" class="btn btn-outline-primary btn-lg">Teach</button></a>
+                <button type="button" class="btn btn-outline-secondary btn-lg" style="color: black;">Grade Assessment</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
