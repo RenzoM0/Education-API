@@ -34,21 +34,21 @@ def clear_chat_history():
     global chat_history
     chat_history = []
 
+def get_chat_history():
+    return chat_history
+
 def generateChat(prompt, system_instructions):
     global chat_history
-
+    
     chat_history.append({'role': 'system', 'content': switch(system_instructions)})
     chat_history.append({'role': 'user', 'content': prompt})
-
-    
-
+ 
     response = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=chat_history
     )
 
     answer = response.choices[0].message['content'].replace('\n', '<br>')
-
     chat_history.append({'role': 'assistant', 'content': answer})
 
     return answer
