@@ -9,6 +9,11 @@ views = Blueprint('views', __name__)
 def home():
     return render_template("home.html", user=current_user)
 
+@views.route('/chathistory')
+@login_required
+def chathistory():
+    return render_template("chathistory.html", user=current_user)
+
 @login_required
 @views.route("/course1chat", methods=['POST', 'GET'])
 def course1chat():
