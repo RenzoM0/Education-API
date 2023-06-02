@@ -4,14 +4,13 @@
     {% for chat in chats %}
         <div class="card border-dark">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <p>{{chat.course}}</p>
+                <p>{{ chat.course }}</p>
             </div>
-                <div class="card-body">
-                    <div class="card-text">{{chat.chatlog}}</div>
-                </div>
-            <div class="card-footer text-muted">{{chat.date_created}}</div>
+            <div class="card-body">
+                <div class="card-text">{{ chat.chatlog.replace('\n', '<br>')|safe }}</div>
+            </div>
+            <div class="card-footer text-muted">{{ chat.date_created }}</div>
         </div>
-        
     {% endfor %}
 </div>
 {% endblock %}
