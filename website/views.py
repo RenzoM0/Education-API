@@ -1,21 +1,35 @@
 import json
-from flask import Blueprint, render_template, jsonify, request, flash
+from flask import Blueprint, render_template, jsonify, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from . import aiapi
-from .models import Chat
+from .models import Chat, LearningStyle
 from . import db
 
 views = Blueprint('views', __name__)
 
-@views.route('/')
+@views.route('/' , methods=['POST', 'GET'])
 @login_required
 def home():
-    return render_template("home.html", user=current_user)
+    learningstyles = LearningStyle.query.filter_by(student=current_user.id).all()
+    return render_template("home.html", user=current_user, learningstyles=learningstyles)
 
-@views.route('/personality')
+@views.route('/personality', methods=['POST', 'GET'])
 @login_required
 def personality():
-    return render_template("personality.html", user=current_user)
+    learningstyles = LearningStyle.query.filter_by(student=current_user.id).all()
+    
+    if request.method == 'POST':
+        name = request.form.get('name')
+        description = request.form.get('description')
+        instruction = request.form.get('instruction')
+        
+        new_learning_style = LearningStyle( name=name, description=description, instruction=instruction, student=current_user.id)
+        db.session.add(new_learning_style)
+        db.session.commit()
+        flash("Learning style created", category='success')
+        return redirect(url_for('views.personality'))
+
+    return render_template("personality.html", user=current_user, learningstyles=learningstyles)
 
 @views.route('/chathistory')
 @login_required

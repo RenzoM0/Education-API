@@ -99,9 +99,9 @@
         <h2>Select learning style</h2>
         <select class="form-select" aria-label="None">
             <option selected>None</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            {% for learningstyle in learningstyles %}
+                <option value="{{ learningstyle.id }}">{{ learningstyle.name }}</option>
+            {% endfor %}
         </select>
     </div>
     <div class="row">
