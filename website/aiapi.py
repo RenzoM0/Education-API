@@ -37,10 +37,15 @@ def clear_chat_history():
 def get_chat_history():
     return chat_history
 
+def add_personality(personality):
+    global personality_instructions
+    print(personality)
+    personality_instructions = personality
+
 def generateChat(prompt, system_instructions):
     global chat_history
     
-    chat_history.append({'role': 'system', 'content': switch(system_instructions)})
+    chat_history.append({'role': 'system', 'content': switch(system_instructions) + personality_instructions})
     chat_history.append({'role': 'user', 'content': prompt})
  
     response = openai.ChatCompletion.create(

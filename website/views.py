@@ -10,7 +10,14 @@ views = Blueprint('views', __name__)
 @views.route('/' , methods=['POST', 'GET'])
 @login_required
 def home():
+    aiapi.clear_chat_history()
     learningstyles = LearningStyle.query.filter_by(student=current_user.id).all()
+    
+    selected_learning_style_id = request.form.get('selected_learning_style')
+    selected_learning_style = LearningStyle.query.get(selected_learning_style_id)
+    if selected_learning_style:
+        aiapi.add_personality(selected_learning_style.instruction)
+    
     return render_template("home.html", user=current_user, learningstyles=learningstyles)
 
 @views.route('/personality', methods=['POST', 'GET'])
@@ -76,7 +83,7 @@ def course2chat():
         else:    
             prompt = request.form['prompt']    
             res = {}
-            res['answer'] = aiapi.generateChat(prompt, 1) 
+            res['answer'] = aiapi.generateChat(prompt, 2) 
             return jsonify(res), 200
         
     return render_template("c_interface_course2.html", user=current_user)
