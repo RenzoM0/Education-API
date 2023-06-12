@@ -5,6 +5,8 @@ from . import db
 from flask_login import login_user, logout_user, login_required, current_user
 from sqlalchemy.sql.expression import true
 from .models import Chat
+from .models import Rubric
+
 
 auth = Blueprint('auth', __name__)
 
@@ -33,15 +35,25 @@ def logout():
     logout_user()
     return redirect(url_for('auth.login'))
 
-@auth.route('/admin')
+@auth.route('/admin', methods=['GET', 'POST'])
 @login_required
 def admin():
-    if current_user.admin:
-        chats = Chat.query.all()
-        return render_template("admin.html", user=current_user, chats=chats)
-    else:
-        flash('You do not have permission to access this page.', category='error')
-        return redirect(url_for('views.home'))
+    
+        if current_user.admin:
+            chats = Chat.query.all()
+            rubrics = Rubric.query.all()
+            if request.method == 'POST':
+                course = request.form.get('course')
+                instruction = request.form.get('instruction')
+            
+                new_rubric = Rubric(course=course,rubric_instruction=instruction)
+                db.session.add(new_rubric)
+                db.session.commit()
+            
+            return render_template("admin.html", user=current_user, chats=chats, rubrics=rubrics)
+        else:
+            flash('You do not have permission to access this page.', category='error')
+            return redirect(url_for('views.home'))
 
 @auth.route('/register', methods=['GET', 'POST'])
 def register():

@@ -2,7 +2,7 @@ import json
 from flask import Blueprint, render_template, jsonify, request, flash, redirect, url_for
 from flask_login import login_required, current_user
 from . import aiapi
-from .models import Chat, LearningStyle
+from .models import Chat, LearningStyle, Rubric
 from . import db
 
 views = Blueprint('views', __name__)
@@ -87,3 +87,33 @@ def course2chat():
             return jsonify(res), 200
         
     return render_template("c_interface_course2.html", user=current_user)
+
+@login_required
+@views.route('/grade', methods=['POST', 'GET'])
+def grade():
+    rubrics = Rubric.query.all()
+    selected_rubric_id = request.form.get('selected_rubric')
+    selected_rubric = Rubric.query.get(selected_rubric_id)
+    rubric_instruction = None
+    
+    if selected_rubric:
+        rubric_instruction = selected_rubric.rubric_instruction
+    
+    if request.method == 'POST':
+        if 'commit' in request.form:  # Check if the 'commit' button was pressed
+            chatdata = aiapi.get_chat_history()
+            # Convert chatdata to a JSON string
+            chatdata_json = json.dumps(chatdata)
+        
+            # Create a new Chat object and save it to the database
+            new_chat = Chat(course='Grade Research', chatlog=chatdata_json, student=current_user.id)
+            db.session.add(new_chat)
+            db.session.commit()
+            flash('Chat history saved!', category='success')
+        else:    
+            prompt = request.form['prompt']
+            res = {}
+            res['answer'] = aiapi.generateGrade(rubric_instruction, prompt)
+            return jsonify(res), 200
+    
+    return render_template("grade.html", user=current_user, rubrics=rubrics, rubric_instruction=rubric_instruction)
