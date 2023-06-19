@@ -1,0 +1,110 @@
+{% extends "base.html" %} {% block title %}Grade Assessment{% endblock %}
+{% block style%}
+
+<style>
+  .content {
+    font-size: 28px;
+  }
+  .chat-container {
+    flex: 1;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    padding: 10px;
+    overflow-y: auto;
+  }
+  .mb-3 {
+    background: skyblue;
+    border-radius: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .message {
+    margin-bottom: 10px;
+  }
+  #aicontent {
+    background: skyblue;
+  }
+
+  .message {
+    background: skyblue;
+  }
+
+  .message .content {
+    background-color: #F0F0F0;
+    padding: 5px;
+    border-radius: 5px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <br />
+  <div class="row">
+    <div class="col">
+      <form method="POST" action="{{ url_for('views.grade') }}">
+        <select class="form-select" aria-label="None" name="selected_rubric">
+          <option selected>None</option>
+          {% for rubric in rubrics %}
+          <option value="{{ rubric.id }}">{{ rubric.course }}</option>
+          {% endfor %}
+        </select>
+        <br />
+        <div class="form-group">
+          <label for="assessment">Assessment</label>
+          <textarea class="form-control" id="assessment" name="prompt" rows="10"></textarea>
+        </div>
+        <br />
+        <button type="submit" class="btn btn-outline-primary btn-lg" id="grade-button">Grade Assessment</button>
+        <button type="submit" name="commit" class="btn btn-outline-secondary btn-lg">Save grading</button>
+      </form>
+    </div>
+    <div class="col">
+      <h2>Result</h2>
+      <div class="list-group w-auto" id="chat-log">
+        <div class="chat-container mb-3">
+          <div class="message">
+            <span class="sender">Teacher Bot:</span>
+            <div class="content" id="aicontent">
+              Hi there! I am here to grade your work! Choose the required rubric and copy your work into the text label.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+  $("#grade-button").click(function (event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+  
+    var assessment = $("#assessment").val();
+    var selectedRubric = $("select[name='selected_rubric']").val();
+  
+    // AJAX CALL TO THE SERVER
+    $.ajax({
+      type: "POST",
+      url: "/grade",
+      data: {
+        'selected_rubric': selectedRubric,
+        'prompt': assessment
+      },
+      success: function (data) {
+        let gpt_data = '';
+        gpt_data += `
+                <div class="chat-container mb-3">
+                    <div class="message">
+                        <span class="sender">Teacher Bot:</span>
+                        <div class="content" id="aicontent">
+                            ${data.answer}
+                        </div>
+                    </div>
+                </div>
+            `;
+        $("#chat-log").append(gpt_data);
+      }
+    });
+  });
+</script>
+{% endblock %}

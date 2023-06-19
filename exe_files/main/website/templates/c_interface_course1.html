@@ -1,0 +1,168 @@
+{% extends "base.html" %} {% block title %}Math Chat{% endblock %}
+{% block style%}
+<style>
+  .content {
+    font-size: 28px;
+  }
+
+  /* Chat container */
+  .chat-container {
+    flex: 1;
+    border: 1px solid #ccc;
+    margin: 0 auto;
+    padding: 10px;
+    overflow-y: auto;
+  }
+
+  /* Chat messages */
+  .message {
+    margin-bottom: 10px;
+  }
+
+  .message .sender {
+    font-weight: bold;
+  }
+
+  .message .content {
+    background-color: #F0F0F0;
+    padding: 5px;
+    border-radius: 5px;
+  }
+
+  /* Input area */
+  .input-container {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .input-box {
+    flex: 1;
+    padding: 5px;
+  }
+
+  .send-button {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+
+  .bg-light {
+    background-color: #353647 !important;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+
+  .mb-3 {
+    background: skyblue;
+    border-radius: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .mb-2 {
+    background: springgreen;
+    border-radius: 25px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .message {
+    background: skyblue;
+  }
+
+  #usermessage {
+    background: springgreen;
+  }
+
+  #aicontent {
+    background: skyblue;
+  }
+
+  #usercontent {
+    background: springgreen;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="row">
+    <form action="{{ url_for('views.course1chat') }}" method="POST">
+      <button type="submit" name="commit" class="btn btn-outline-secondary btn-lg">Save chat</button>
+    </form>
+  </div>
+
+  <div class="list-group w-auto" id="chat-log">
+    <div class="chat-container mb-3">
+      <div class="message">
+        <span class="sender">Teacher Bot:</span>
+        <div class="content" id="aicontent">
+          Hi there! I am your AI math teacher, ask me anything about the course!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="input-container">
+    <input type="text" id="chat-input" class="input-box" placeholder="Type your message...">
+    <button class="send-button" id="gpt-button">Send</button>
+  </div>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+  const input = document.getElementById('chat-input');
+  const button = document.getElementById('gpt-button');
+
+  input.addEventListener('keyup', function (event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevents the default behavior of the Enter key
+
+      button.click(); // Trigger a click event on the button
+    }
+  });
+  $("#gpt-button").click(function () {
+    var question = $("#chat-input").val();
+
+    let html_data = '';
+    html_data += `
+      <div class="chat-container mb-2">
+        <div class="message" id="usermessage">
+          <span class="sender">You:</span>
+          <div class="content" id="usercontent">
+            ${question}
+          </div>
+        </div>
+      </div>
+      `;
+    $("#chat-input").val('');
+    $("#chat-log").append(html_data);
+
+    //AJAX CALL TO THE SERVER
+    $.ajax({
+      type: "POST",
+      url: "/course1chat",
+      data: { 'prompt': question },
+      success: function (data) {
+        let gpt_data = '';
+        gpt_data += `
+          <div class="chat-container mb-3">
+            <div class="message">
+              <span class="sender">Teacher Bot:</span>
+              <div class="content" id="aicontent">
+                ${data.answer}
+              </div>
+            </div>
+          </div>
+          `;
+        $("#chat-log").append(gpt_data);
+        window.scrollTo(0, document.body.scrollHeight); // Scroll the page to the bottom
+
+      }
+    });
+    window.scrollTo(0, document.body.scrollHeight); // Scroll the page to the bottom
+  });
+</script>
+{% endblock %}

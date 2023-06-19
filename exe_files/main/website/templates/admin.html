@@ -1,0 +1,51 @@
+{% extends "base.html" %} {% block title %}Admin{% endblock %} {% block content %}
+<div class="container">
+    <div class="jumbotron">
+        <h1>Admin Page</h1>
+        <p class="indextext"> Edit rubric or view all chat history</p>
+    </div>
+    <div class="row">
+        <h2>Add rubric</h2>
+        <form method="POST">
+            <div class="form-group">
+                <label for="course">Course</label>
+                <input type="text" class="form-control" id="course" name="course" placeholder="Course name" />
+                <label for="instruction">Rubric instructions</label>
+                <input type="text" class="form-control" id="instruction" name="instruction"
+                    placeholder="Enter instruction" />
+            </div>
+            <br />
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+    <div class="row">
+        <h2>All rubrics</h2>
+        {% for rubric in rubrics %}
+        <div class="card border-dark">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <p>{{rubric.course}}</p>
+            </div>
+            <div class="card-body">
+                <div class="card-text">{{rubric.rubric_instruction}}</div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row">
+        <h2>All chat history</h2>
+        {% for chat in chats %}
+        <div class="card border-dark">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <p>{{chat.user.name}}</p>
+                <p>{{chat.course}}</p>
+            </div>
+            <div class="card-body">
+                <div class="card-text">{{chat.chatlog.replace('\n', '<br>')|safe}}</div>
+            </div>
+            <div class="card-footer text-muted">{{chat.date_created}}</div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}
